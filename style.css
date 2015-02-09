@@ -1,0 +1,16 @@
+body {
+	width: 600px;
+	background-color: white;
+	font-family: Verdana, sans-serif;
+	padding: 20px;
+}
+
+h1 {
+	margin-top: 0;
+	color: navy;
+}
+
+form {
+	border: 1px solid silver;
+	padding: 10px;
+}
