@@ -2,7 +2,9 @@
 function generateRegister($filename, $bank) {
 	$file = openCsv($filename, $bank);
 
-	array_shift($file);
+	if ($bank != "abnamro") {
+	  array_shift($file);
+  }
 	if ($bank == "bcee") {
 		array_shift($file);		
 	}
@@ -10,7 +12,7 @@ function generateRegister($filename, $bank) {
 	$registerQif = "!Type:Bank\n\n";
 	foreach ($file as $registerCsv)
 	{
-		if ($registerCsv[0] != null && $registerCsv[1] != null) {
+		if ($registerCsv[0] != null && ($registerCsv[1] != null || $bank=="abnamro")) {
 			$registerQif .= generateTransaction($registerCsv, $bank);
 		}
 	}	
@@ -22,6 +24,7 @@ function generateTransaction($transactionCsv, $bank) {
 	if ($bank == "bcee") $fields = bcee($transactionCsv);
 	if ($bank == "ing") $fields = ing($transactionCsv);
 	if ($bank == "rabobank") $fields = rabobank($transactionCsv);
+	if ($bank == "abnamro") $fields = abnamro($transactionCsv);
 
 	$transaction = "";
 	$transaction .= "D{$fields['date']}\n";
@@ -82,13 +85,23 @@ function rabobank($row) {
         $fields['category'] = "";
 
         return $fields;
+}
 
+function abnamro($row) {
+        // For some reason, ABN Amro csv's are doubly escaped, so we need to read the line as csv once more
+        $row_new = str_getcsv($row[0]);
+        $fields['date'] = substr($row_new[2],4,2) . "/" . substr($row_new[2],6,2) . "/" . substr($row_new[2],0,4);
+        $fields['amount'] = $row_new[6];
+        $fields['payee'] = $row_new[7];
+        $fields['category'] = "";
+        return $fields;
 }
 
 function openCsv($fileName, $bank) {
 	if ($bank == "ing") $delimiter = ",";
 	if ($bank == "bcee") $delimiter = ";";
 	if ($bank == "rabobank") $delimiter = ",";
+	if ($bank == "abnamro") $delimiter = ",";
 
 	$lines = array();
 	$row = 1;

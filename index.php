@@ -12,19 +12,18 @@ This page helps importing financial data into bookkeeping software. To be more p
 
 <p>Currently it works for the following banks:</p>
 <ul>
+<li>ABN AMRO (Nederland)</li>
 <li>ING (Nederland)</li>
 <li>Rabobank (Nederland)</li>
-<li>Spuerkees / BCEE (Banque et Caisse d'Epargne de l'Etat) (Luxembourg) Note: use BCSS (old) for files generated before July 2012.</li>
+<li>Spuerkees / BCEE (Banque et Caisse d'Epargne de l'Etat) (Luxembourg)</li>
 </ul>
 
 <p>The resulting QIF files are suitable for import in GnuCash and Microsoft Money, amongst others.</p>
 
-<p>In July 2012, BCEE changed their file format. For files generated before that date, please select 'BCEE (old)'.</p>
-
 <form method="post" enctype="multipart/form-data" action="convert.php">
 <table>
 <tr><label><td>Upload CSV</td><td><input type="file" name="csv" /></label></td></tr>
-<tr><label><td>Bank</td><td><select name="bank"><option value="ing">ING</option><option value="rabobank">Rabobank</option><option value="bcee">BCEE</option><option value="bceeOld">BCEE (old)</option></select></label></td></tr>
+<tr><label><td>Bank</td><td><select name="bank"><option value="abnamro">ABN Amro</option><option value="ing">ING</option><option value="rabobank">Rabobank</option><option value="bcee">BCEE</option></select></label></td></tr>
 <tr><td>&nbsp;</td><td><input type="submit" value="Submit"></td></tr>
 </table>
 </form>
