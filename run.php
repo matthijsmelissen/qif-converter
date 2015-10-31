@@ -2,10 +2,7 @@
 function generateRegister($filename, $bank) {
 	$file = openCsv($filename, $bank);
 
-	if ($bank != "abnamro") {
-	  array_shift($file);
-  }
-	if ($bank == "bcee") {
+	if ($bank == "bcee" || $bank == "abnamro") {
 		array_shift($file);		
 	}
 
@@ -88,11 +85,9 @@ function rabobank($row) {
 }
 
 function abnamro($row) {
-        // For some reason, ABN Amro csv's are doubly escaped, so we need to read the line as csv once more
-        $row_new = str_getcsv($row[0]);
-        $fields['date'] = substr($row_new[2],4,2) . "/" . substr($row_new[2],6,2) . "/" . substr($row_new[2],0,4);
-        $fields['amount'] = $row_new[6];
-        $fields['payee'] = $row_new[7];
+        $fields['date'] = substr($row[2],4,2) . "/" . substr($row[2],6,2) . "/" . substr($row[2],0,4);
+        $fields['amount'] = $row[6];
+        $fields['payee'] = $row[7];
         $fields['category'] = "";
         return $fields;
 }
