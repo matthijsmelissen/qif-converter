@@ -16,14 +16,15 @@ This page helps importing financial data into bookkeeping software. To be more p
 <li>ING (Nederland)</li>
 <li>Rabobank (Nederland)</li>
 <li>Spuerkees / BCEE (Banque et Caisse d'Epargne de l'Etat) (Luxembourg)</li>
+<li>SEB Skandinaviska Enskilda Banken AB (Sweden)</li>
 </ul>
 
-<p>The resulting QIF files are suitable for import in GnuCash and Microsoft Money, amongst others.</p>
+<p>The resulting QIF files are suitable for import in GnuCash, Odoo and Microsoft Money, amongst others.</p>
 
 <form method="post" enctype="multipart/form-data" action="convert.php">
 <table>
 <tr><label><td>Upload CSV</td><td><input type="file" name="csv" /></label></td></tr>
-<tr><label><td>Bank</td><td><select name="bank"><option value="abnamro">ABN Amro</option><option value="ing">ING</option><option value="rabobank">Rabobank</option><option value="bcee">BCEE</option></select></label></td></tr>
+<tr><label><td>Bank</td><td><select name="bank"><option value="abnamro">ABN Amro</option><option value="ing">ING</option><option value="rabobank">Rabobank</option><option value="bcee">BCEE</option><option value="seb">SEB</option></select></label></td></tr>
 <tr><td>&nbsp;</td><td><input type="submit" value="Submit"></td></tr>
 </table>
 </form>
