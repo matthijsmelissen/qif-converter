@@ -2,7 +2,7 @@
 function generateRegister($filename, $bank) {
 	$file = openCsv($filename, $bank);
 
-	if ($bank == "bcee" || $bank == "abnamro" || $bank == "ing" || $bank="seb") {
+	if ($bank == "bcee" || $bank == "abnamro" || $bank == "ing" || $bank == "seb") {
 		array_shift($file);		
 	}
 
