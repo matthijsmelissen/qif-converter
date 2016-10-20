@@ -3,7 +3,7 @@ $oldFileName = $_FILES['csv']['name'];
 $bank = $_POST['bank'];
 
 if (substr($oldFileName,-4) != '.csv') { $error = "Filename should end in .csv!"; }
-if (!($bank == "abnamro" || $bank == "ing" || $bank == "rabobank" || $bank == "bcee" || $bank == "bceeOld")) { $error = "Choose a bank!"; }
+if (!($bank == "abnamro" || $bank == "ing" || $bank == "rabobank" || $bank == "bcee" || $bank == "bceeOld" || $bank == "seb")) { $error = "Choose a bank!"; }
 
 if ($error) {
 	echo $error;

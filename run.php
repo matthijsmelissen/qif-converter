@@ -2,7 +2,7 @@
 function generateRegister($filename, $bank) {
 	$file = openCsv($filename, $bank);
 
-	if ($bank == "bcee" || $bank == "abnamro" || $bank == "ing") {
+	if ($bank == "bcee" || $bank == "abnamro" || $bank == "ing" || $bank="seb") {
 		array_shift($file);		
 	}
 
@@ -22,6 +22,7 @@ function generateTransaction($transactionCsv, $bank) {
 	if ($bank == "ing") $fields = ing($transactionCsv);
 	if ($bank == "rabobank") $fields = rabobank($transactionCsv);
 	if ($bank == "abnamro") $fields = abnamro($transactionCsv);
+	if ($bank == "seb") $fields = seb($transactionCsv);
 
 	$transaction = "";
 	$transaction .= "D{$fields['date']}\n";
@@ -92,11 +93,20 @@ function abnamro($row) {
         return $fields;
 }
 
+function seb($row) {
+        $fields['date'] = substr($row[0],5,2) . "/" . substr($row[0],8,2) . "/" . substr($row[0],0,4);
+        $fields['amount'] = str_replace(",", ".", $row[4]);
+        $fields['payee'] = $row[3];
+        $fields['category'] = "";
+        return $fields;
+}
+
 function openCsv($fileName, $bank) {
 	if ($bank == "ing") $delimiter = ",";
 	if ($bank == "bcee") $delimiter = ";";
 	if ($bank == "rabobank") $delimiter = ",";
 	if ($bank == "abnamro") $delimiter = ",";
+	if ($bank == "seb") $delimiter = ";";
 
 	$lines = array();
 	$row = 1;
@@ -109,5 +119,6 @@ function openCsv($fileName, $bank) {
 	}
 	return $lines;
 }
+
 
 ?>
