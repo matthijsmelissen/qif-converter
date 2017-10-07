@@ -8,6 +8,8 @@
 
 <h1>Conversion from CSV to QIF</h1>
 
+<p id="old">This is the old version of the conversion page. For the new JavaScript-based page, <a href="..">click here</a>.</p>
+
 This page helps importing financial data into bookkeeping software. To be more precise, it converts CSV-files (which you can obtain by downloading your financial data from your bank's website) to QIF-files, which can be imported into bookkeeping software.
 
 <p>Currently it works for the following banks:</p>
