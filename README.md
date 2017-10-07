@@ -1,4 +1,4 @@
-#qif-converter
+# qif-converter
 Converts CSV files from ING (Netherlands), Rabobank (Netherlands) and BCEE (Luxembourg) into QIF files.
 
 The resulting QIF files are suitable for import in GnuCash, Odoo and Microsoft Money, amongst others.
