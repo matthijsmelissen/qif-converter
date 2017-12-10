@@ -11,7 +11,9 @@
 
 <h1>Conversion from CSV to QIF</h1>
 
-This page helps importing financial data into bookkeeping software. To be more precise, it converts CSV files (which you can obtain by downloading your financial data from your bank's website) to QIF files, which can be imported into bookkeeping software.
+This page helps importing financial data into bookkeeping software. To be more precise, it converts CSV files (which you can obtain by downloading your financial data from your bank's website) to QIF files, which can be imported into accounting software.
+
+<p><strong>Update</strong>: the converter now works entirely in JavaScript, so your financial data remains on your own computer and does not need to be uploaded to the server.</strong>
 
 <p>Currently it works for the following banks:</p>
 <ul>
@@ -19,18 +21,9 @@ This page helps importing financial data into bookkeeping software. To be more p
 <li>ING (Nederland)</li>
 </ul>
 
+<p>To help me add support for other banks, please send (the first couple of lines of) a CSV file to me at <a href="mailto:qif&#64;matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>
+
 <p>The resulting QIF files are suitable for import in GnuCash and Microsoft Money, amongst others.</p>
-
-<div id="update"><strong>Update 7 October 2017</strong>: the converter has been entirely re-written from PHP to JavaScript. This means an increase in privacy, as the data files no longer need to be uploaded to the server. The <a href="old">old version</a> is still available, but will be phased out soon.
-<p>Support for the following banks is not yet enabled in the new version, as I don't have example CSV files. To help me re-enable it, please send (the first couple of lines of) a CSV-file for these banks to me at <a href="mailto:qif&#64;matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>
-
-<ul>
-<li>Rabobank (Nederland)</li>
-<li>Spuerkees / BCEE (Banque et Caisse d'Epargne de l'Etat) (Luxembourg)</li>
-<li>SEB Skandinaviska Enskilda Banken AB (Sweden)</li>
-</ul></p>
-<p>For the time being, you can use the old version for these banks.</p>
-</div>
 
 
 <form id="form">
@@ -39,9 +32,6 @@ This page helps importing financial data into bookkeeping software. To be more p
 <tr><label><td>Bank</td><td><select name="bank" id="bank">
 	<option value="abnamro">ABN Amro</option>
 	<option value="ing">ING</option>
-	<!--<option value="rabobank">Rabobank</option>-->
-	<!--<option value="bcee">BCEE</option>-->
-	<!--<option value="seb">SEB</option>-->
 </select></label></td></tr>
 <tr><td>&nbsp;</td><td><input type="submit" value="Submit"></td></tr>
 </table>
@@ -50,7 +40,7 @@ This page helps importing financial data into bookkeeping software. To be more p
 <p>This tool is still in testing phase. Please check manually if the file has been converted correctly. If you find a problem or have any further questions, please contact me at <a href="mailto:qif&#64;matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>.</p>
 
 <p>This tool is written by Matthijs Melissen and published under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC-0</a> license.
-Download the <a href="https://github.com/math1985/qif-converter">source code on Github</a>.</p>
+Download the <a href="https://github.com/matthijsmelissen/qif-converter">source code on Github</a>.</p>
 
 </body>
 </html>
