@@ -6,7 +6,7 @@ window.onload = function() {
 		e.preventDefault();
 		var file = fileInput.files[0];
 
-		if (file.type = 'text/csv') {
+		if (file.type == 'text/csv') {
 			var reader = new FileReader();
 
 			reader.onload = function(e) {
@@ -78,15 +78,15 @@ function convertTransaction(transactionCsv, bank) {
 
 
 function bcee(row) {
-	row[0] = row[0].replace('\0','');
-	row[1] = row[1].replace('\0','');
-	row[2] = row[2].replace('\0','');
-	row[3] = row[3].replace('\0','');
+	row[0] = row[0].replace(/\0/g,'');
+	row[1] = row[1].replace(/\0/g,'');
+	row[2] = row[2].replace(/\0/g,'');
+	row[3] = row[3].replace(/\0/g,'');
 
 	var fields = {};
 
 	fields['date'] = row[0];
-	fields['amount'] = row[2].replace('\xA0', '').replace(' ', '').replace(',', '.'); //this is not a space but some strange character
+	fields['amount'] = row[2].replace(/\xA0/g, '').replace(/ /g, '').replace(/,/g, '.'); //this is not a space but some strange character
 
 	fields['payee'] = row[1];
 	fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
@@ -98,7 +98,7 @@ function bcee(row) {
 function ing(row) {
 	var fields = {};
 	fields['date'] = row['Datum'].substr(4,2) + '/' + row['Datum'].substr(6,2) + '/' + row['Datum'].substr(0,4);
-	fields['amount'] = ((row['Af Bij'] == 'Af' ? '-' : '') + row['Bedrag (EUR)']).replace(',', '.');
+	fields['amount'] = ((row['Af Bij'] == 'Af' ? '-' : '') + row['Bedrag (EUR)']).replace(/,/g, '.');
 	fields['payee'] = row['Naam / Omschrijving'] + ' ' + row['Mededelingen'] + ' ' + row['Tegenrekening'];
 	fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
 	fields['category'] = row['MutatieSoort'];
@@ -112,7 +112,7 @@ function rabobank(row) {
 
     var fields = {};
     fields['date'] = row[2].substr(4,2) + '/' + row[2].substr(6,2) + '/' + row[2].substr(0,4);
-    fields['amount'] = (row[3] == 'C' ? row[4] : '-'+row[4]).replace(',', '.');
+    fields['amount'] = (row[3] == 'C' ? row[4] : '-'+row[4]).replace(/,/g, '.');
     fields['payee'] = row[5] + ' ' + row[6];
     fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
     fields['category'] = '';
@@ -129,11 +129,12 @@ function abnamro(row) {
     return fields;
 }
 
-function seb($row) {
-    $fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
-    $fields['amount'] = row[4].replace(',','.');
-    $fields['payee'] = row[3];
-    $fields['category'] = '';
+function seb(row) {
+    var fields = {};
+    fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
+    fields['amount'] = row[4].replace(/,/g,'.');
+    fields['payee'] = row[3];
+    fields['category'] = '';
     return $fields;
 }
 
