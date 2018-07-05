@@ -135,7 +135,7 @@ function seb(row) {
     fields['amount'] = row[4].replace(/,/g,'.');
     fields['payee'] = row[3];
     fields['category'] = '';
-    return $fields;
+    return fields;
 }
 
 function download(text, filename) {
