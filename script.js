@@ -29,7 +29,9 @@ function parseCsv(file, bank) {
 	if (bank == 'bcee') delimiter = ';';
 	if (bank == 'rabobank') delimiter = ',';
 	if (bank == 'abnamro') delimiter = ',';
-	if (bank == 'seb') delimiter = ';';
+	if (bank == 'seb') delimiter = ',';
+	if (bank == 'skandia') delimiter = ',';
+	if (bank == 'jak') delimiter = ',';
 
 	if (bank == 'abnamro' || bank == 'ing') {
 		var header = true;
@@ -49,22 +51,30 @@ function convertRegister(file, bank) {
 	for (var i in inputData) {
 		var transactionCsv = inputData[i];
 
-		if (countProperties(transactionCsv) >= 3) {
-			registerQif += convertTransaction(transactionCsv, bank);
-		}
+		// skip rows with too few fields
+		if (countProperties(transactionCsv) < 3)
+			continue;
+
+		//For skandia, SEB and JAK, skip rows not starting with a year
+	    if ((bank == 'seb' || bank == 'skandia' || bank == 'jak'))
+	    	if (transactionCsv[0].substr(0,2) != '20')
+	    		continue;
+   
+		registerQif += convertTransaction(transactionCsv, bank);
 	}
 
 	return registerQif;
 }
 
 function convertTransaction(transactionCsv, bank) {
-
 	var fields;
 	if (bank == 'bcee') fields = bcee(transactionCsv);
 	if (bank == 'ing') fields = ing(transactionCsv);
 	if (bank == 'rabobank') fields = rabobank(transactionCsv);
 	if (bank == 'abnamro') fields = abnamro(transactionCsv);
 	if (bank == 'seb') fields = seb(transactionCsv);
+	if (bank == 'skandia') fields = skandia(transactionCsv);
+	if (bank == 'jak') fields = jak(transactionCsv);
 
 	var transaction = '';
 	transaction += 'D' + fields['date'] + '\n';
@@ -132,8 +142,26 @@ function abnamro(row) {
 function seb(row) {
     var fields = {};
     fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
-    fields['amount'] = row[4].replace(/,/g,'.');
+    fields['amount'] = row[4].replace(/,/g,'.').replace(/\s/g,'');
     fields['payee'] = row[3];
+    fields['category'] = '';
+    return fields;
+}
+
+function skandia(row) {
+    var fields = {};
+    fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
+    fields['amount'] = row[2].replace(/,/g,'.').replace(/\s/g,'');
+    fields['payee'] = row[1];
+    fields['category'] = '';
+    return fields;
+}
+
+function jak(row) {
+    var fields = {};
+    fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
+    fields['amount'] = row[2].replace(/,/g,'.').replace(/\s/g,'');
+    fields['payee'] = row[1];
     fields['category'] = '';
     return fields;
 }
