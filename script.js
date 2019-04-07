@@ -6,19 +6,15 @@ window.onload = function() {
 		e.preventDefault();
 		var file = fileInput.files[0];
 
-		if (file.type == 'text/csv') {
-			var reader = new FileReader();
+		var reader = new FileReader();
 
-			reader.onload = function(e) {
-				output = convertRegister(reader.result, document.getElementById('bank').value);
-				newFileName = file.name.replace('.csv','')+'.qif';
-				download(output, newFileName);
-			}
-
-			reader.readAsText(file);	
-		} else {
-			alert('File not supported!');
+		reader.onload = function(e) {
+			output = convertRegister(reader.result, document.getElementById('bank').value);
+			newFileName = file.name.replace('.csv','')+'.qif';
+			download(output, newFileName);
 		}
+
+		reader.readAsText(file);
 	});
 }
 
