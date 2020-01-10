@@ -22,6 +22,7 @@ function parseCsv(file, bank) {
 	var delimiter;
 
 	if (bank == 'ing') delimiter = ',';
+	if (bank == 'asn') delimiter = ',';
 	if (bank == 'bcee') delimiter = ';';
 	if (bank == 'rabobank') delimiter = ',';
 	if (bank == 'abnamro') delimiter = ',';
@@ -71,6 +72,7 @@ function convertTransaction(transactionCsv, bank) {
 	if (bank == 'seb') fields = seb(transactionCsv);
 	if (bank == 'skandia') fields = skandia(transactionCsv);
 	if (bank == 'jak') fields = jak(transactionCsv);
+	if (bank == 'asn') fields = asn(transactionCsv);
 
 	var transaction = '';
 	transaction += 'D' + fields['date'] + '\n';
@@ -158,6 +160,15 @@ function jak(row) {
     fields['date'] = row[0].substr(5,2) + "/" + row[0].substr(8,2) + "/" + row[0].substr(0,4);
     fields['amount'] = row[2].replace(/,/g,'.').replace(/\s/g,'');
     fields['payee'] = row[1];
+    fields['category'] = '';
+    return fields;
+}
+
+function asn(row) {
+	var fields = {};
+    fields['date'] = row[0].substr(3,2) + "/" + row[0].substr(0,2) + "/" + row[0].substr(6,4);
+    fields['amount'] = row[10].replace(/,/g,'.').replace(/\s/g,'');
+    fields['payee'] = row[3] + " " + row[17].replace("'", '');
     fields['category'] = '';
     return fields;
 }
