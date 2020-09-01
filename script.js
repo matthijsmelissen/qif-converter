@@ -21,7 +21,7 @@ window.onload = function() {
 function parseCsv(file, bank) {
 	var delimiter;
 
-	if (bank == 'ing') delimiter = ',';
+	if (bank == 'ing') delimiter = ';';
 	if (bank == 'bcee') delimiter = ';';
 	if (bank == 'rabobank') delimiter = ',';
 	if (bank == 'abnamro') delimiter = ',';
