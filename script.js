@@ -18,6 +18,7 @@ window.onload = function() {
 	});
 }
 
+function parseCsv(file, bank) {
 	var delimiter;
 
 	if (bank == 'ing') delimiter = ';';
