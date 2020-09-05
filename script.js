@@ -21,6 +21,8 @@ window.onload = function() {
 function parseCsv(file, bank) {
 	var delimiter;
 
+	// Note: ING may use ; (by default) or ,, depending on the chosen export format.
+	// The correct delimiter will be auto-detected below.
 	if (bank == 'ing') delimiter = ';';
 	if (bank == 'asn') delimiter = ',';
 	if (bank == 'bcee') delimiter = ';';
@@ -34,6 +36,14 @@ function parseCsv(file, bank) {
 		var header = true;
 	} else {
 		var header = false;
+	}
+
+	if (header) {
+		if (/^.*","/.test(file)) {
+			delimiter = ',';
+		} else if (/^.*";"/.test(file)) {
+			delimiter = ';';
+		}
 	}
 
 	data = Papa.parse(file, {delimiter: delimiter, header: header});
@@ -104,12 +114,16 @@ function bcee(row) {
 }
 
 function ing(row) {
+	// Latest overview of file format at https://www.ing.nl/zakelijk/betalen/betalingen-doen/bestandsformaten/index.html
+	// As of august 2020: page 5 of https://web.archive.org/web/20200901140347/https://www.ing.nl/media/ING_CSV_Mijn_ING_Augustus2020_tcm162-201483.pdf
+	// Before august 2020: page 5 of https://web.archive.org/web/20200901140206/https://www.ing.nl/media/266197_1216_tcm162-117728.pdf
 	var fields = {};
 	fields['date'] = row['Datum'].substr(4,2) + '/' + row['Datum'].substr(6,2) + '/' + row['Datum'].substr(0,4);
 	fields['amount'] = ((row['Af Bij'] == 'Af' ? '-' : '') + row['Bedrag (EUR)']).replace(/,/g, '.');
 	fields['payee'] = row['Naam / Omschrijving'] + ' ' + row['Mededelingen'] + ' ' + row['Tegenrekening'];
 	fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
-	fields['category'] = row['MutatieSoort'];
+	// "Mutatiesoort" as of august 2020, "MutatieSoort" before that.
+	fields['category'] = row['Mutatiesoort'] || row['MutatieSoort'];
 
 	return fields;
 }
