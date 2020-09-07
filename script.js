@@ -109,7 +109,7 @@ function ing(row) {
 	fields['amount'] = ((row['Af Bij'] == 'Af' ? '-' : '') + row['Bedrag (EUR)']).replace(/,/g, '.');
 	fields['payee'] = row['Naam / Omschrijving'] + ' ' + row['Mededelingen'] + ' ' + row['Tegenrekening'];
 	fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
-	fields['category'] = row['MutatieSoort'];
+	fields['category'] = row['Mutatiesoort'];
 
 	return fields;
 }
