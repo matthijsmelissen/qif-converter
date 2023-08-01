@@ -104,12 +104,13 @@ function bcee(row) {
 }
 
 function ing(row) {
+	row = Object.values(row);
 	var fields = {};
-	fields['date'] = row['Datum'].substr(4,2) + '/' + row['Datum'].substr(6,2) + '/' + row['Datum'].substr(0,4);
-	fields['amount'] = ((row['Af Bij'] == 'Af' ? '-' : '') + row['Bedrag (EUR)']).replace(/,/g, '.');
-	fields['payee'] = row['Naam / Omschrijving'] + ' ' + row['Mededelingen'] + ' ' + row['Tegenrekening'];
+	fields['date'] = row[0].substr(4,2) + '/' + row[0].substr(6,2) + '/' + row[0].substr(0,4);
+	fields['amount'] = (((row[5] == 'Af' || row[5] == 'Debit') ? '-' : '') + row[6]).replace(/,/g, '.');
+	fields['payee'] = row[1] + ' ' + row[8] + ' ' + row[3];
 	fields['payee'] = fields['payee'].replace(/\s\s+/g, ' ').trim();
-	fields['category'] = row['Mutatiesoort'];
+	fields['category'] = row[4];
 
 	return fields;
 }
