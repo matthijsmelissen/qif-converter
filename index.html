@@ -12,19 +12,20 @@
 
 This page helps with importing financial data into bookkeeping software. It converts CSV files (which you can download from your bank) to QIF files. QIF files in turn can be imported in programs like GnuCash or Microsoft Money.
 
-<p><strong>Update</strong>: the converter now works entirely in JavaScript, so your financial data remains on your own computer and does not need to be uploaded to the server.</strong>
+<p><strong>Update</strong>: the converter now works entirely in JavaScript, so your financial data remains on your own computer and does not need to be uploaded to the server.</p>
 
 <p>Currently it works for the following banks:</p>
 <ul>
 <li>ABN AMRO (The Netherlands)</li>
 <li>ASN Bank (The Netherlands)</li>
 <li>ING (The Netherlands)</li>
+<li>KBC (België)</li>
 <li>SEB (Sweden)</li>
 <li>Skandia (Sweden)</li>
 <li>JAK (Sweden)</li>
 </ul>
 
-<p>To help me add support for other banks, please send (the first couple of lines of) a CSV file to me at <a href="mailto:qif&#64;matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>
+<p>To help me add support for other banks, please send (the first couple of lines of) a CSV file to me at <a href="mailto:qif@matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a></p>
 
 <form id="form">
 <table>
@@ -33,18 +34,20 @@ This page helps with importing financial data into bookkeeping software. It conv
 	<option value="abnamro">ABN Amro</option>
 	<option value="asn">ASN Bank</option>
 	<option value="ing">ING</option>
+	<option value="kbc">KBC (België)</option>
 	<option value="seb">SEB</option>
 	<option value="skandia">Skandia</option>
 	<option value="jak">JAK</option>
 </select></label></td></tr>
-<tr><td>&nbsp;</td><td><input type="submit" value="Submit"></td></tr>
+<tr><td>&nbsp;</td><td><input type="submit" value="Submit" /></td></tr>
 </table>
 </form>
 
-<p>This tool is still in testing phase. Please check manually if the file has been converted correctly. If you find a problem or have any further questions, please contact me at <a href="mailto:qif&#64;matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>.</p>
+<p>This tool is still in testing phase. Please check manually if the file has been converted correctly. If you find a problem or have any further questions, please contact me at <a href="mailto:qif@matthijsmelissen.nl">qif&#64;matthijsmelissen.nl</a>.</p>
 
 <p>This tool is written by Matthijs Melissen and published under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC-0</a> license.
 Download the <a href="https://github.com/matthijsmelissen/qif-converter">source code on Github</a>.</p>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>

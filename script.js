@@ -29,8 +29,9 @@ function parseCsv(file, bank) {
 	if (bank == 'seb') delimiter = ',';
 	if (bank == 'skandia') delimiter = ',';
 	if (bank == 'jak') delimiter = ',';
+    if (bank == 'kbc') delimiter = ';';
 
-	if (bank == 'abnamro' || bank == 'ing') {
+	if (bank == 'abnamro' || bank == 'ing' || bank == 'kbc') {
 		var header = true;
 	} else {
 		var header = false;
@@ -73,6 +74,7 @@ function convertTransaction(transactionCsv, bank) {
 	if (bank == 'skandia') fields = skandia(transactionCsv);
 	if (bank == 'jak') fields = jak(transactionCsv);
 	if (bank == 'asn') fields = asn(transactionCsv);
+    if (bank == 'kbc') fields = kbc(transactionCsv);
 
 	var transaction = '';
 	transaction += 'D' + fields['date'] + '\n';
@@ -173,6 +175,16 @@ function asn(row) {
     fields['category'] = '';
     return fields;
 }
+
+function kbc(row) {
+    var fields = {};
+    fields['date'] = row['Datum'].substr(3,2) + "/" + row['Datum'].substr(0,2) + "/" + row['Datum'].substr(6,4);
+    fields['amount'] = row['Bedrag'].replace(/,/g,'.').replace(/\s/g,'');
+    fields['payee'] = row['Naam tegenpartij'] + " " + row['vrije mededeling'];
+    fields['category'] = '';
+    return fields;
+}
+
 
 function download(text, filename) {
 	var element = document.createElement('a');
